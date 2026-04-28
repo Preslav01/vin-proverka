@@ -4,7 +4,7 @@ jspm_packages/
 web_modules/
 
 # Build output
-dist/
+#dist/
 build/
 out/
 .output/
