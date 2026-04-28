@@ -196,6 +196,15 @@ export default function App() {
       gallerySource: "Източник: Auction data",
       open: "Отвори",
       lockedExpert: "🔒 Налично в експертен анализ",
+      disclaimerTitle: "Важно уточнение",
+      disclaimerText:
+        "VIN Proverka използва налични публични и партньорски данни, включително VIN decoder и auction информация, когато такава е налична. Докладът не заменя физически оглед, сервизна диагностика или правна проверка на документите преди покупка.",
+      disclaimerPointOne:
+        "Данните могат да бъдат непълни или забавени според източника.",
+      disclaimerPointTwo:
+        "Винаги проверявай автомобила физически преди покупка.",
+      disclaimerPointThree:
+        "Експертният анализ е помощно мнение, не гаранция за състоянието на автомобила.",
     },
     en: {
       brand: "VIN Check",
@@ -347,6 +356,15 @@ export default function App() {
       gallerySource: "Source: Auction data",
       open: "Open",
       lockedExpert: "🔒 Available in expert analysis",
+      disclaimerTitle: "Important disclaimer",
+      disclaimerText:
+        "VIN Proverka uses available public and partner data, including VIN decoder and auction information when available. The report does not replace a physical inspection, workshop diagnostics or legal document verification before purchase.",
+      disclaimerPointOne:
+        "Data may be incomplete or delayed depending on the source.",
+      disclaimerPointTwo:
+        "Always inspect the vehicle physically before buying.",
+      disclaimerPointThree:
+        "Expert analysis is an advisory opinion, not a guarantee of the vehicle condition.",
     },
   };
 
@@ -1371,6 +1389,27 @@ export default function App() {
             )}
           </section>
         )}
+        <section className="mx-auto max-w-7xl px-6 pb-12 md:pb-16">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-slate-300">
+            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+              <div className="max-w-3xl">
+                <h2 className="text-xl font-black text-white">
+                  {text.disclaimerTitle}
+                </h2>
+                <p className="mt-3 leading-7 text-slate-400">
+                  {text.disclaimerText}
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-slate-950/50 p-4 text-sm leading-6 text-slate-400 md:max-w-sm">
+                <p>• {text.disclaimerPointOne}</p>
+                <p>• {text.disclaimerPointTwo}</p>
+                <p>• {text.disclaimerPointThree}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {galleryIndex !== null && auctionImages.length > 0 && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center px-4">
             <button
