@@ -86,6 +86,7 @@ export default function App() {
       status: "Статус",
       downloadPdf: "Изтегли PDF доклад",
       requestExpert: "Вземи експертен анализ (€9.99)",
+      requestExpertHint: "Отговор до 24 часа. Без плащане преди потвърждение.",
       vinRecognized: "VIN разпознат",
       auctionFound: "Auction данни: намерени",
       auctionNotFound: "Auction данни: няма намерени",
@@ -261,6 +262,8 @@ export default function App() {
       status: "Status",
       downloadPdf: "Download PDF report",
       requestExpert: "Get expert analysis (€9.99)",
+      requestExpertHint:
+        "Response within 24 hours. No payment before confirmation.",
       vinRecognized: "VIN recognized",
       auctionFound: "Auction data found",
       auctionNotFound: "No auction data found",
@@ -1376,6 +1379,9 @@ export default function App() {
                     >
                       {text.requestExpert}
                     </button>
+                    <p className="mt-2 text-center text-xs font-bold text-slate-300">
+                      {text.requestExpertHint}
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -1496,15 +1502,25 @@ export default function App() {
                 </div>
                 <p className="text-sm leading-6">{text.footerSourcesText}</p>
                 <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold text-slate-300">
-                  <span className="rounded-full bg-white/10 px-3 py-1">NHTSA</span>
-                  <span className="rounded-full bg-white/10 px-3 py-1">Copart</span>
-                  <span className="rounded-full bg-white/10 px-3 py-1">IAAI</span>
-                  <span className="rounded-full bg-white/10 px-3 py-1">VIN decoder</span>
+                  <span className="rounded-full bg-white/10 px-3 py-1">
+                    NHTSA
+                  </span>
+                  <span className="rounded-full bg-white/10 px-3 py-1">
+                    Copart
+                  </span>
+                  <span className="rounded-full bg-white/10 px-3 py-1">
+                    IAAI
+                  </span>
+                  <span className="rounded-full bg-white/10 px-3 py-1">
+                    VIN decoder
+                  </span>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-black text-white">{text.footerLinksTitle}</h3>
+                <h3 className="font-black text-white">
+                  {text.footerLinksTitle}
+                </h3>
                 <div className="mt-3 grid gap-2 text-sm">
                   <a href="#check" className="hover:text-white">
                     {text.footerCheck}
@@ -1532,8 +1548,12 @@ export default function App() {
               </div>
 
               <div>
-                <h3 className="font-black text-white">{text.footerContactTitle}</h3>
-                <p className="mt-3 text-sm leading-6">{text.footerContactText}</p>
+                <h3 className="font-black text-white">
+                  {text.footerContactTitle}
+                </h3>
+                <p className="mt-3 text-sm leading-6">
+                  {text.footerContactText}
+                </p>
                 <a
                   href={`mailto:${text.footerEmail}`}
                   className="mt-3 inline-block font-bold text-blue-200 hover:text-white"
