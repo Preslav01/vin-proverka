@@ -215,6 +215,18 @@ export default function App() {
         "Винаги проверявай автомобила физически преди покупка.",
       disclaimerPointThree:
         "Експертният анализ е помощно мнение, не гаранция за състоянието на автомобила.",
+      footerSourcesTitle: "Източници и доверие",
+      footerSourcesText:
+        "Комбинираме VIN decoder данни, публични технически данни и налична auction информация, когато такава бъде намерена.",
+      footerContactTitle: "Контакт",
+      footerContactText:
+        "За въпроси, партньорства или експертен анализ можеш да се свържеш с нас по имейл.",
+      footerEmail: "contact@vinproverka.online",
+      footerLinksTitle: "Бързи връзки",
+      footerCheck: "Провери VIN",
+      footerReport: "Доклад",
+      footerExpert: "Експертен анализ",
+      footerCopyright: "Всички права запазени.",
     },
     en: {
       brand: "VIN Check",
@@ -379,6 +391,18 @@ export default function App() {
         "Always inspect the vehicle physically before buying.",
       disclaimerPointThree:
         "Expert analysis is an advisory opinion, not a guarantee of the vehicle condition.",
+      footerSourcesTitle: "Sources and trust",
+      footerSourcesText:
+        "We combine VIN decoder data, public technical data and available auction information when found.",
+      footerContactTitle: "Contact",
+      footerContactText:
+        "For questions, partnerships or expert analysis, you can contact us by email.",
+      footerEmail: "contact@vinproverka.online",
+      footerLinksTitle: "Quick links",
+      footerCheck: "Check VIN",
+      footerReport: "Report",
+      footerExpert: "Expert analysis",
+      footerCopyright: "All rights reserved.",
     },
   };
 
@@ -1460,6 +1484,69 @@ export default function App() {
               </div>
             </div>
           </div>
+
+          <footer className="mt-6 rounded-3xl border border-white/10 bg-slate-950/60 p-6 text-slate-400">
+            <div className="grid gap-6 md:grid-cols-3">
+              <div>
+                <div className="mb-3 flex items-center gap-3 text-white">
+                  <div className="rounded-2xl bg-blue-500 p-2">
+                    <ShieldCheck className="h-5 w-5" />
+                  </div>
+                  <span className="text-lg font-black">VIN Proverka</span>
+                </div>
+                <p className="text-sm leading-6">{text.footerSourcesText}</p>
+                <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold text-slate-300">
+                  <span className="rounded-full bg-white/10 px-3 py-1">NHTSA</span>
+                  <span className="rounded-full bg-white/10 px-3 py-1">Copart</span>
+                  <span className="rounded-full bg-white/10 px-3 py-1">IAAI</span>
+                  <span className="rounded-full bg-white/10 px-3 py-1">VIN decoder</span>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="font-black text-white">{text.footerLinksTitle}</h3>
+                <div className="mt-3 grid gap-2 text-sm">
+                  <a href="#check" className="hover:text-white">
+                    {text.footerCheck}
+                  </a>
+                  <a href="#report" className="hover:text-white">
+                    {text.footerReport}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setRequestStatus("");
+                      setShowRequestForm(true);
+                      trackEvent("expert_request_open", {
+                        vin,
+                        language,
+                        has_auction_data: Boolean(auctionReport),
+                        source: "footer",
+                      });
+                    }}
+                    className="text-left hover:text-white"
+                  >
+                    {text.footerExpert}
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="font-black text-white">{text.footerContactTitle}</h3>
+                <p className="mt-3 text-sm leading-6">{text.footerContactText}</p>
+                <a
+                  href={`mailto:${text.footerEmail}`}
+                  className="mt-3 inline-block font-bold text-blue-200 hover:text-white"
+                >
+                  {text.footerEmail}
+                </a>
+              </div>
+            </div>
+
+            <div className="mt-6 border-t border-white/10 pt-4 text-xs text-slate-500">
+              © {new Date().getFullYear()} VIN Proverka. {text.footerCopyright}
+            </div>
+          </footer>
         </section>
 
         {galleryIndex !== null && auctionImages.length > 0 && (
