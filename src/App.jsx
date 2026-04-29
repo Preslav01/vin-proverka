@@ -23,7 +23,8 @@ const CardContent = ({ className = "", children }) => (
   <div className={className}>{children}</div>
 );
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || window.location.origin;
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || window.location.origin;
 
 const trackEvent = (eventName, params = {}) => {
   if (typeof window !== "undefined" && typeof window.gtag === "function") {
@@ -195,6 +196,10 @@ export default function App() {
       namePlaceholder: "Име",
       contactPlaceholder: "Телефон или имейл",
       sendRequest: "Изпрати заявка",
+      requestSending: "Изпращаме...",
+      requestSuccess:
+        "✅ Заявката е изпратена успешно! Ще се свържем с теб скоро.",
+      requestError: "❌ Възникна грешка. Опитай отново.",
       close: "Затвори",
       galleryImage: "Снимка",
       galleryFrom: "от",
@@ -355,6 +360,10 @@ export default function App() {
       namePlaceholder: "Name",
       contactPlaceholder: "Phone or email",
       sendRequest: "Send request",
+      requestSending: "Sending...",
+      requestSuccess:
+        "✅ Your request was sent successfully! We will contact you soon.",
+      requestError: "❌ Something went wrong. Please try again.",
       close: "Close",
       galleryImage: "Image",
       galleryFrom: "of",
@@ -1397,6 +1406,18 @@ export default function App() {
                     />
                   </div>
 
+                  {requestStatus === "success" && (
+                    <div className="mt-4 rounded-2xl bg-green-100 px-4 py-3 text-sm font-bold text-green-700">
+                      {text.requestSuccess}
+                    </div>
+                  )}
+
+                  {requestStatus === "error" && (
+                    <div className="mt-4 rounded-2xl bg-red-100 px-4 py-3 text-sm font-bold text-red-700">
+                      {text.requestError}
+                    </div>
+                  )}
+
                   <button
                     type="button"
                     onClick={sendFullReportRequestEmail}
@@ -1404,7 +1425,7 @@ export default function App() {
                     className="mt-5 w-full rounded-2xl bg-blue-600 px-5 py-4 font-black text-white hover:bg-blue-700 disabled:opacity-60"
                   >
                     {requestLoading
-                      ? "Изпращаме..."
+                      ? text.requestSending
                       : `${text.sendRequest} · 9.99 €`}
                   </button>
 
