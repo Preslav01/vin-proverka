@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import { execSync } from "child_process";
 
 // IMPORTANT: Node 18+ has fetch built-in. If not, install node-fetch.
 
@@ -16,6 +17,17 @@ const LEAD_TO_EMAIL = process.env.LEAD_TO_EMAIL || "preslav.petrov06@gmail.com";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DIST_DIR = path.join(__dirname, "..", "dist");
+
+try {
+  console.log("Building frontend before starting server...");
+  execSync("npm run build", {
+    cwd: path.join(__dirname, ".."),
+    stdio: "inherit",
+  });
+  console.log("Frontend build completed.");
+} catch (error) {
+  console.error("Frontend build failed:", error.message);
+}
 
 app.use(cors());
 app.use(express.json());
