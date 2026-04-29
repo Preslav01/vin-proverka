@@ -23,8 +23,13 @@ const CardContent = ({ className = "", children }) => (
   <div className={className}>{children}</div>
 );
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || window.location.origin;
+
+const trackEvent = (eventName, params = {}) => {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", eventName, params);
+  }
+};
 
 export default function App() {
   const [vin, setVin] = useState("");
@@ -581,6 +586,14 @@ export default function App() {
   const downloadPdfReport = async () => {
     if (!vehicle) return;
 
+    trackEvent("pdf_download", {
+      vin,
+      make: vehicle?.Make || "",
+      model: vehicle?.Model || "",
+      year: vehicle?.ModelYear || "",
+      has_auction_data: Boolean(auctionReport),
+    });
+
     const { jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const analysis = getRiskAnalysis();
@@ -731,6 +744,12 @@ export default function App() {
       }
 
       setRequestStatus("success");
+      trackEvent("expert_request_submit", {
+        vin,
+        language,
+        has_auction_data: Boolean(auctionReport),
+        contact_type: requestContact.includes("@") ? "email" : "phone_or_other",
+      });
       setRequestName("");
       setRequestContact("");
     } catch {
@@ -744,6 +763,10 @@ export default function App() {
     e.preventDefault();
 
     setLoading(true);
+    trackEvent("vin_search", {
+      vin,
+      language,
+    });
     setError("");
     setVehicle(null);
     setAuctionReport(null);
@@ -1307,7 +1330,15 @@ export default function App() {
                     </button>
                     <button
                       type="button"
-                      onClick={() => setShowRequestForm(true)}
+                      onClick={() => {
+                        setRequestStatus("");
+                        setShowRequestForm(true);
+                        trackEvent("expert_request_open", {
+                          vin,
+                          language,
+                          has_auction_data: Boolean(auctionReport),
+                        });
+                      }}
                       className="mt-3 w-full rounded-2xl bg-blue-600 px-5 py-4 font-black text-white hover:bg-blue-700"
                     >
                       {text.requestExpert}
